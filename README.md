@@ -1,3 +1,6 @@
+ Segítségedre lehet:	- https://developers.google.com
+ 						- http://infobarkacs.hu/index.php/topic,9608.msg83171/topicseen.html
+
  Android Studio segítségével generáltassunk egy Google Maps activity projektet
  majd általam megadott két fájl közül az egyik tartalmát egy az egyben használhatjuk ( activity_maps.xml )
  míg a java fájl tartalmából csak bizonyos részek kellenek csak.
