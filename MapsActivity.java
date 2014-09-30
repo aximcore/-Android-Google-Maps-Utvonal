@@ -55,7 +55,7 @@ public class MapsActivity extends FragmentActivity
     // Begin ****************************************
     private TextView latituteField;
     private TextView longitudeField;
-    private LocationManager locationManager;
+    private LocationManager locationManager;    // GPS vagy más helymeghatározós szolgáltatás
     private String provider;
     // End ******************************************
 
@@ -69,19 +69,19 @@ public class MapsActivity extends FragmentActivity
 
         // Begin ****************************************
         if (mMap != null) {
-            mMap.setMyLocationEnabled(true);
+            mMap.setMyLocationEnabled(true);        // saját lokalizáció engedélyezése
         }
 
-        latituteField = (TextView) findViewById(R.id.TextView01);
-        longitudeField = (TextView) findViewById(R.id.TextView02);
-        locationManager = ( LocationManager ) getSystemService(Context.LOCATION_SERVICE);
+        latituteField = (TextView) findViewById(R.id.TextView01);       // szélleségi
+        longitudeField = (TextView) findViewById(R.id.TextView02);      // hosszúsági
+        locationManager = ( LocationManager ) getSystemService(Context.LOCATION_SERVICE);   // rendszerszolgáltatások lekérése
         Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria,false);
-        Location location = locationManager.getLastKnownLocation(provider);
+        provider = locationManager.getBestProvider(criteria,false);     // legjobb szolgáltatás lekérése ( jelen esetben GPS )
+        Location location = locationManager.getLastKnownLocation(provider); // utolsó ismert helyzetünk
 
         if ( location != null) {
             System.out.println("Provider " + provider + " kiválasztva.");
-            onLocationChanged(location);
+            onLocationChanged(location);                                // ha helyzetünk megváltozna
         }else{
           latituteField.setText("Hely nem elérhető!");
           longitudeField.setText("Hely nem elérhető");
@@ -94,7 +94,7 @@ public class MapsActivity extends FragmentActivity
         super.onResume();
         setUpMapIfNeeded();
         // Begin ****************************************
-        locationManager.requestLocationUpdates(provider,/*400*/1,1,this);
+        locationManager.requestLocationUpdates(provider,/*400*/1,1,this); // milyen időközönként, illetve távolságonként kérje le a helyzetünk
         // End ******************************************
     }
 
@@ -107,16 +107,16 @@ public class MapsActivity extends FragmentActivity
 
     @Override
     public void onLocationChanged(Location location){
-        double lat =  location.getLatitude();
-        double lng =  location.getLongitude();
+        double lat =  location.getLatitude();           // szélleség
+        double lng =  location.getLongitude();          // hosszúság
 
-        latituteField.setText(String.valueOf(lat));
+        latituteField.setText(String.valueOf(lat));     // lekért koordináták beállítása
         longitudeField.setText(String.valueOf(lng));
 
-        LatLng POINTS = new LatLng(location.getLatitude(),
+        LatLng POINTS = new LatLng(location.getLatitude(),  // Pont beállítása x,y értékkel
                 location.getLongitude() );
 
-        mMap.addMarker(new MarkerOptions().position(POINTS)
+        mMap.addMarker(new MarkerOptions().position(POINTS) // Pont elhelyezése a térképen
                 .title("Pontok"));
     }
 
